@@ -44,9 +44,11 @@ LOADER_MAPPING = {
 }
 
 class DocumentLoader:
+    """Document loader for loading documents from a directory."""
 
     @staticmethod
     def load_single_document(file_path: str or Path) -> Document:
+        """Load a single document from a file path."""
         if isinstance(file_path, str):
             file_path = Path(file_path)
         ext = file_path.suffix.lower()
@@ -66,5 +68,3 @@ class DocumentLoader:
                 glob.glob(os.path.join(source_dir, f"**/*{ext}"), recursive=True)
             )
         return [DocumentLoader.load_single_document(file_path) for file_path in all_files]
-
-
