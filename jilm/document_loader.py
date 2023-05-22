@@ -50,6 +50,7 @@ class DocumentLoader:
         if isinstance(file_path, str):
             file_path = Path(file_path)
         ext = file_path.suffix.lower()
+        file_path = str(file_path)
         if ext in LOADER_MAPPING:
             loader_class, loader_args = LOADER_MAPPING[ext]
             loader = loader_class(file_path, **loader_args)
