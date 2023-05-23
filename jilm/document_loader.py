@@ -45,7 +45,7 @@ class DocumentLoader:
     """Document loader for loading documents from a directory."""
 
     @staticmethod
-    def load_single_document(file_path: str or Path) -> Document:
+    def load_single_document(file_path: str or Path, **document_loader_kwargs) -> Document:
         """Load a single document from a file path."""
         if isinstance(file_path, str):
             file_path = Path(file_path)
@@ -53,17 +53,18 @@ class DocumentLoader:
         file_path = str(file_path)
         if ext in LOADER_MAPPING:
             loader_class, loader_args = LOADER_MAPPING[ext]
+            loader_args.update(document_loader_kwargs)
             loader = loader_class(file_path, **loader_args)
             return loader.load()[0]
 
         raise ValueError(f"Unsupported file extension '{ext}'")
 
     @staticmethod
-    def load_documents(source_dir: str) -> List[Document]:
+    def load_documents(source_dir: str or Path, **document_loader_kwargs) -> List[Document]:
         """Load all documents from source documents directory."""
+        if isinstance(source_dir, str):
+            source_dir = Path(source_dir)
         all_files = []
         for ext in LOADER_MAPPING:
-            all_files.extend(
-                glob.glob(os.path.join(source_dir, f"**/*{ext}"), recursive=True)
-            )
-        return [DocumentLoader.load_single_document(file_path) for file_path in all_files]
+            all_files.extend(source_dir.glob(f"*{ext}"))
+        return [DocumentLoader.load_single_document(file_path, **document_loader_kwargs) for file_path in all_files]
