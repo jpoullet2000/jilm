@@ -4,6 +4,7 @@ from pygptj.model import Model
 
 from dotenv import load_dotenv
 from chromadb.config import Settings
+from langchain.embeddings import HuggingFaceEmbeddings
 
 load_dotenv()
 
@@ -22,3 +23,8 @@ if llm_model_path is None:
     raise ValueError("JILM_LLM_MODEL environment variable not set")
 
 llm_model = Model(llm_model_path)
+
+# Embeddings
+embeddings_model_name = os.environ.get('EMBEDDINGS_MODEL_NAME')
+embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
+
