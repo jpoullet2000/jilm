@@ -5,13 +5,15 @@ from langchain.vectorstores import Chroma
 from chromadb.config import Settings
 from langchain.docstore.document import Document
 from langchain.chains import RetrievalQA
-from jilm.settings import llm_model, CHROMA_SETTINGS, embeddings, PERSIST_DIRECTORY
+from jilm.settings import CHROMA_SETTINGS, embeddings, PERSIST_DIRECTORY
 from jilm.document_loader import DocumentLoader
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from jilm.model import JILMLangModel
 
 class DocQuery:
-    def __init__(self, query: str, docs: List[Document] = None, doc_folder = Path or str, llm: Model = llm_model, chroma_settings: Settings = CHROMA_SETTINGS, embeddings=embeddings):
+    def __init__(self, query: str, docs: List[Document] = None, doc_folder = Path or str, llm: Model = None, chroma_settings: Settings = CHROMA_SETTINGS, embeddings=embeddings):
         self.query = query
-        self.llm = llm
+        self.llm = llm or JILMLangModel(callbacks=[StreamingStdOutCallbackHandler()])
         self.chroma_settings = chroma_settings
         self.docs = self._get_docs(docs, doc_folder)
         self.embeddings = embeddings
@@ -41,6 +43,8 @@ class DocQuery:
 
     def run(self):
         """Run the query on the documents."""
+        if not self._db:
+            self._db_from_doc()
         retriever = self._db.as_retriever()
         qa = RetrievalQA.from_chain_type(llm=self.llm, chain_type="stuff", retriever=retriever, return_source_documents=True)
         res = qa(self.query)

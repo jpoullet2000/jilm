@@ -24,7 +24,7 @@ from langchain.docstore.document import Document
 
 # Map file extensions to document loaders and their arguments
 LOADER_MAPPING = {
-    ".csv": (CSVLoader, {}),
+    ".csv": (CSVLoader, {"csv_args": {"delimiter": ","}}),
     # ".docx": (Docx2txtLoader, {}),
     ".doc": (UnstructuredWordDocumentLoader, {}),
     ".docx": (UnstructuredWordDocumentLoader, {}),
