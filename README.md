@@ -6,7 +6,11 @@ Jilm enhances your AI capabilities.
 
 ## Installation
 
-TO BE DONE
+To install
+
+```bash
+pip install jilm
+```
 
 ## Get started
 

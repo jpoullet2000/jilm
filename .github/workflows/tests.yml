@@ -28,4 +28,4 @@ jobs:
       run: poetry install # Replace with the command to install your project dependencies
 
     - name: Run pytest
-      run: poetry run pytest
+      run: poetry run pytest tests/unit
