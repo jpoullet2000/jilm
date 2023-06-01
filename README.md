@@ -15,18 +15,7 @@ Only the line with the model path should be modified:
 JILM_LLM_MODEL_PATH="/path/to/ggml-gpt4all-j-v1.3-groovy.bin"
 ```
 
-To install
-
-```bash
-pip install python-dotenv
-pip install sentence_transformers
-pip install pygptj
-pip install unstructured
-pip install matplotlib
-pip install jilm
-```
-
-Or from the github repo
+To install from the github repo
 
 ```bash
 git clone https://github.com/jpoullet2000/jilm.
