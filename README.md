@@ -18,7 +18,7 @@ JILM_LLM_MODEL_PATH="/path/to/ggml-gpt4all-j-v1.3-groovy.bin"
 To install from the github repo
 
 ```bash
-git clone https://github.com/jpoullet2000/jilm.
+git clone https://github.com/jpoullet2000/jilm.git
 pip install poetry
 poetry install
 ```
