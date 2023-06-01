@@ -20,7 +20,18 @@ To install
 ```bash
 pip install python-dotenv
 pip install sentence_transformers
+pip install pygptj
+pip install unstructured
+pip install matplotlib
 pip install jilm
+```
+
+Or from the github repo
+
+```bash
+git clone https://github.com/jpoullet2000/jilm.
+pip install poetry
+poetry install
 ```
 
 ## Get started

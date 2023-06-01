@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jilm"
-version = "0.1.1"
+version = "0.1.2"
 description = "Enhance your AI capabilities with jilm"
 authors = ["Jean-Baptiste Poullet"]
 readme = "README.md"
@@ -11,7 +11,7 @@ langchain = "^0.0.154"
 pygptj = "^1.0.10"
 python-dotenv = "^1.0.0"
 transformers = "^4.28.1"
-sketch = "^0.3.5"
+# sketch = "^0.3.5"
 matplotlib = "^3.7.1"
 torch = "^2.0.1"
 chromadb = "^0.3.23"
