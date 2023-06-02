@@ -5,6 +5,7 @@ from pygptj.model import Model
 from dotenv import load_dotenv
 from chromadb.config import Settings
 from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.llms.openai import OpenAI
 
 load_dotenv()
 
@@ -18,11 +19,37 @@ CHROMA_SETTINGS = Settings(
         anonymized_telemetry=False
 )
 
-llm_model_path = os.getenv("JILM_LLM_MODEL_PATH")
-if llm_model_path is None:
-    raise ValueError("JILM_LLM_MODEL environment variable not set")
+# Define the LLM model
+def get_gpt4all_model():
+    """Return the GPT4ALL model."""
+    llm_model_path = os.getenv("JILM_LLM_MODEL_PATH")
+    if llm_model_path is None:
+        raise ValueError("JILM_LLM_MODEL environment variable not set")
+    return Model(llm_model_path)
 
-llm_model = Model(llm_model_path)
+def get_gpt4_model():
+    """Return the GPT4 model."""
+    return OpenAI
+
+
+def pick_model():
+    """Pick the model based on the MODEL_TYPE environment variable.
+
+    Raises:
+        ValueError: Model type not set
+
+    Returns:
+        Model: The LLM model
+    """
+    if os.environ.get('MODEL_TYPE') == "GPT4All":
+        return get_gpt4all_model()
+    elif os.environ.get('MODEL_TYPE') == "GPT4":
+        return get_gpt4_model()
+    else:
+        raise ValueError("MODEL_TYPE environment variable not set")
+
+llm_model = pick_model()
+llm_type = os.environ.get("MODEL_TYPE")
 
 # Embeddings
 embeddings_model_name = os.environ.get('EMBEDDINGS_MODEL_NAME')

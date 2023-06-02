@@ -2,7 +2,7 @@
 
 ![JILM](images/jilm-logo.png)
 
-Jilm enhances your AI capabilities.
+The package name is Jilm. Jilm enhances your AI capabilities. This package aims to facilitate the use of large language models (LLM) on your own data.
 
 ## Installation
 

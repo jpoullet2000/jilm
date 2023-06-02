@@ -8,12 +8,13 @@ from langchain.chains import RetrievalQA
 from jilm.settings import CHROMA_SETTINGS, embeddings, PERSIST_DIRECTORY
 from jilm.document_loader import DocumentLoader
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from jilm.model import JILMLangModel
+from jilm.model import build_model
+
 
 class DocQuery:
     def __init__(self, query: str, docs: List[Document] = None, doc_folder = Path or str, llm: Model = None, chroma_settings: Settings = CHROMA_SETTINGS, embeddings=embeddings):
         self.query = query
-        self.llm = llm or JILMLangModel(callbacks=[StreamingStdOutCallbackHandler()])
+        self.llm = llm or build_model(callbacks=[StreamingStdOutCallbackHandler()])
         self.chroma_settings = chroma_settings
         self.docs = self._get_docs(docs, doc_folder)
         self.embeddings = embeddings
