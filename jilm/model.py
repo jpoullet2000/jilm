@@ -9,6 +9,7 @@ from jilm.settings import llm_model, llm_type
 
 
 def new_text_callback(text):
+    """Print text."""
     print(text, end="")
 
 

@@ -12,7 +12,19 @@ from jilm.model import build_model
 
 
 class DocQuery:
+    """Query a document with a query."""
+
     def __init__(self, query: str, docs: List[Document] = None, doc_folder = Path or str, llm: Model = None, chroma_settings: Settings = CHROMA_SETTINGS, embeddings=embeddings):
+        """Initialize a DocQuery object.
+
+        Args:
+            query (str): Query to search for.
+            docs (List[Document], optional): List of documents to search in. Defaults to None.
+            doc_folder (_type_, optional): Document folder containing documents. Defaults to Pathorstr.
+            llm (Model, optional): Model. Defaults to None.
+            chroma_settings (Settings, optional): chroma settings. Defaults to CHROMA_SETTINGS.
+            embeddings (_type_, optional): embeddings. Defaults to embeddings.
+        """
         self.query = query
         self.llm = llm or build_model(callbacks=[StreamingStdOutCallbackHandler()])
         self.chroma_settings = chroma_settings
