@@ -15,7 +15,7 @@ def build_model_results(mocker):
 @pytest.fixture
 def chroma_settings(mocker):
     """Create a Chroma settings object."""
-    mocker.patch('jilm.settings.CHROMA_SETTINGS', return_value='mocked_chroma_settings')
+    mocker.patch('chromadb.config.Settings', return_value='mocked_chroma_settings')
     return 'mocked_value'
 
 @pytest.fixture(scope="session")
