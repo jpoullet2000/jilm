@@ -5,7 +5,7 @@ from pygptj.model import Model
 from dotenv import load_dotenv
 from chromadb.config import Settings
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.llms.openai import OpenAI
+from langchain.llms.openai import OpenAI, AzureOpenAI
 
 load_dotenv()
 
@@ -31,6 +31,10 @@ def get_gpt4_model():
     """Return the GPT4 model."""
     return OpenAI
 
+def get_gpt4_azure_model():
+    """Return the Azure GPT4 model."""
+    return AzureOpenAI
+
 
 def pick_model():
     """Pick the model based on the MODEL_TYPE environment variable.
@@ -45,6 +49,8 @@ def pick_model():
         return get_gpt4all_model()
     elif os.environ.get('MODEL_TYPE') == "GPT4":
         return get_gpt4_model()
+    elif os.environ.get('MODEL_TYPE') == "GPT4Azure":
+        return get_gpt4_azure_model()
     else:
         raise ValueError("MODEL_TYPE environment variable not set")
 
