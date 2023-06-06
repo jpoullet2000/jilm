@@ -25,6 +25,7 @@ openai = ["openai"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
+pytest-mock = "^3.6.1"
 black = "^23.3.0"
 twine = "^4.0.2"
 
