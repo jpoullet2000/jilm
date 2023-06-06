@@ -10,7 +10,7 @@ os.environ["MODEL_TYPE"] = "GPT4"
 def build_model_results(mocker):
     """Mock the AI assistant."""
     mocker.patch('jilm.model.build_model', return_value='mocked_value')
-    return
+    return 'mocked_value'
 
 @pytest.fixture(scope="session")
 def data_folder():
