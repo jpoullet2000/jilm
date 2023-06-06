@@ -9,7 +9,13 @@ os.environ["MODEL_TYPE"] = "GPT4"
 @pytest.fixture
 def build_model_results(mocker):
     """Mock the AI assistant."""
-    mocker.patch('jilm.model.build_model', return_value='mocked_value')
+    mocker.patch('jilm.model.build_model', return_value='mocked_llm_model')
+    return 'mocked_value'
+
+@pytest.fixture
+def chroma_settings(mocker):
+    """Create a Chroma settings object."""
+    mocker.patch('jilm.settings.CHROMA_SETTINGS', return_value='mocked_chroma_settings')
     return 'mocked_value'
 
 @pytest.fixture(scope="session")
