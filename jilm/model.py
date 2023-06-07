@@ -5,10 +5,11 @@ from functools import partial
 from langchain.llms.base import LLM
 from langchain.llms.utils import enforce_stop_tokens
 from langchain.callbacks.manager import CallbackManagerForLLMRun
-from jilm.settings import llm_model
+from jilm.settings import llm_model, llm_type
 
 
 def new_text_callback(text):
+    """Print text."""
     print(text, end="")
 
 
@@ -78,7 +79,6 @@ class JILMLangModel(LLM):
     def _call(self, prompt: str, stop: Optional[List[str]] = None, run_manager: Optional[CallbackManagerForLLMRun] = None) -> str:
         if run_manager:
             text_callback = partial(run_manager.on_llm_new_token, verbose=self.verbose)
-            #text = self.client.generate(
             text = llm_model.generate(
                 prompt,
                 new_text_callback=text_callback,
@@ -86,7 +86,6 @@ class JILMLangModel(LLM):
             )
         else:
             text = llm_model.generate(prompt=prompt, **self._default_params)
-            # text = self.client.generate(prompt, **self._default_params)
         #if stop is not None:
         if self.stop is not None:
             print("Enforcing stop tokens:", self.stop)
@@ -114,3 +113,9 @@ class JILMLangModel(LLM):
             "temp": self.temp,
         }
 
+def build_model(**kwargs):
+    """Build the model."""
+    if llm_type == "GPT4":
+        return llm_model(**kwargs)
+    else:
+        return JILMLangModel(**kwargs)

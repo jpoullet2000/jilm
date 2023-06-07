@@ -5,7 +5,7 @@ current_folder = Path(__file__).parent
 
 @pytest.fixture(scope="session")
 def data_folder():
-    return current_folder / "data"
+    return current_folder.parent / "data"
 
 @pytest.fixture(scope="session")
 def csv_file(data_folder):
