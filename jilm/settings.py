@@ -12,12 +12,14 @@ load_dotenv()
 # Define the folder for storing database
 PERSIST_DIRECTORY = os.environ.get('PERSIST_DIRECTORY')
 
-# Define the Chroma settings
-CHROMA_SETTINGS = Settings(
+
+def get_chroma_settings():
+    """Get the Chroma settings."""
+    return Settings(
         chroma_db_impl='duckdb+parquet',
         persist_directory=PERSIST_DIRECTORY,
         anonymized_telemetry=False
-)
+    )
 
 # Define the LLM model
 def get_gpt4all_model():
@@ -57,7 +59,10 @@ def pick_model():
 llm_model = pick_model()
 llm_type = os.environ.get("MODEL_TYPE")
 
-# Embeddings
-embeddings_model_name = os.environ.get('EMBEDDINGS_MODEL_NAME')
-embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
+def get_embeddings():
+    """Get the embeddings."""
+    embeddings_model_name = os.environ.get('EMBEDDINGS_MODEL_NAME')
+    if embeddings_model_name is None:
+        raise ValueError("EMBEDDINGS_MODEL_NAME environment variable not set")
+    return HuggingFaceEmbeddings(model_name=embeddings_model_name)
 
