@@ -9,15 +9,17 @@ from langchain.llms.openai import OpenAI, AzureOpenAI
 
 load_dotenv()
 
+def get_persist_directory():
+    """Get the persist directory."""
+    return os.environ.get('PERSIST_DIRECTORY')
 
 def get_chroma_settings():
     """Get the Chroma settings."""
     # Define the folder for storing database
-    PERSIST_DIRECTORY = os.environ.get('PERSIST_DIRECTORY')
 
     return Settings(
         chroma_db_impl='duckdb+parquet',
-        persist_directory=PERSIST_DIRECTORY,
+        persist_directory=get_persist_directory(),
         anonymized_telemetry=False
     )
 

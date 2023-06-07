@@ -6,7 +6,7 @@ from langchain.vectorstores import Chroma
 from chromadb.config import Settings
 from langchain.docstore.document import Document
 from langchain.chains import RetrievalQA
-from jilm.settings import get_chroma_settings, get_embeddings, PERSIST_DIRECTORY
+from jilm.settings import get_chroma_settings, get_embeddings, get_persist_directory
 from jilm.document_loader import DocumentLoader
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from jilm.model import build_model
@@ -62,7 +62,7 @@ class DocQuery:
         self._db = Chroma.from_documents(
             self.docs,
             self.embeddings,
-            persist_directory=PERSIST_DIRECTORY,
+            persist_directory=get_persist_directory(),
             client_settings=self.chroma_settings)
         self._db.persist()
 
